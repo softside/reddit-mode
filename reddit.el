@@ -385,7 +385,7 @@ MSubreddit: ")
       (nreverse widgets))))
 
 (defun reddit-comments-current-comment ()
-  (labels ((lookup (widget)
+  (cl-labels ((lookup (widget)
              (cond ((null widget)
                     nil)
                    ((not (eq 'reddit-comment-widget (widget-type widget)))
