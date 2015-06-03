@@ -197,6 +197,7 @@
 (define-derived-mode reddit-mode nil "Reddit"
   "Major mode for using Reddit."
   (widen)
+  (setq-default word-wrap t)
   (setq buffer-read-only t)
   (auto-save-mode 0))
 
@@ -293,6 +294,7 @@ MSubreddit: ")
 
 (define-derived-mode reddit-comments-mode tree-mode "Reddit Comments"
   (widen)
+  (setq-default word-wrap t)
   (setq buffer-read-only t)
   (auto-save-mode 0))
 
