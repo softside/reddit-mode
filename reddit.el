@@ -197,6 +197,7 @@
 (define-derived-mode reddit-mode nil "Reddit"
   "Major mode for using Reddit."
   (widen)
+  (setq-default word-wrap t)
   (setq buffer-read-only t)
   (auto-save-mode 0))
 
@@ -293,6 +294,7 @@ MSubreddit: ")
 
 (define-derived-mode reddit-comments-mode tree-mode "Reddit Comments"
   (widen)
+  (setq-default word-wrap t)
   (setq buffer-read-only t)
   (auto-save-mode 0))
 
@@ -328,6 +330,14 @@ MSubreddit: ")
       (if (or (not (arrayp data))
               (< (length data) 2))
           (error "Weird data: %s" data)
+        (let* ((data (assoc-default 'data (aref data 0)))
+               (children (assoc-default 'children data))
+               (data (assoc-default 'data (aref children 0)))
+               (title (assoc-default 'title data))
+               (selftext (assoc-default 'selftext data)))
+          (insert (format "Title: %s\n\n" title))
+          (insert (format "%s\n\n" selftext)))
+        (insert (format "Comments:\n"))
         (let* ((data (assoc-default 'data (aref data 1)))
                (children (assoc-default 'children data))
                (trees (reddit-comments-trees children)))
